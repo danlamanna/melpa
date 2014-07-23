@@ -1,56 +1,19 @@
-<html>
-  <head>
+{% extends "layout.html" %}
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.js"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.1/css/jquery.dataTables.css" />
+{% block body %}
+      <h1><span class="archive-name">MELPA</span> (Milkypostman’s Emacs Lisp Package Archive)</h1>
+      <ul>
+        <li>Up-to-date packages built on our servers from upstream source</li>
+        <li>Installable in any recent Emacs using 'package.el' - no need to install svn/cvs/hg/bzr/git/darcs/fossil etc.</li>
+        <li>Curated - no obsolete, renamed, forked or randomly hacked packages</li>
+        <li>Comprehensive - more packages than any other archive</li>
+        <li>Automatic updates - new commits result in new packages</li>
+        <li>Extensible - contribute recipes via github, and we'll build the packages</li>
+      </ul>
 
-    <script type="javascript">
+      <strong>Filter:</strong> </string><input type="text" ng-model="filterOptions.filterText" />
+      <br/>
+      <br/>
+      <div class="gridStyle" ng-grid="gridOptions"></div>
 
-      jQuery(document).ready(function() {
-      jQuery('#example').dataTable(
-      {
-      "searching": true,
-      "paging":   false,
-        "ordering": false,
-        "info":     false
-
-      }
-      );
-      } );
-      </script>
-  </head>
-
-  <body>
-
-
-
-    <div id="example_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="example"></label></div>
-
-<table id="example" class="display dataTable">
-  <thead>
-    <tr>
-      <th>Package</th>
-      <th>Description</th>
-      <th>Version</th>
-      <th>Recipe</th>
-      <th>Source</th>
-      <th>DLs</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for recipe in recipes %}
-    <tr>
-      <td>{{ recipe[0] }}</td>
-      <td>{{ recipe[1] }}</td>
-      <td>{{ recipe[2] }}</td>
-      <td><a href="{{ recipe[3] }}">Recipe</a></td>
-      <td>{{ recipe[4] }}</td>
-      <td>{{ recipe[5] }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-  </body>
-
-  </html>
+      {% endblock %}

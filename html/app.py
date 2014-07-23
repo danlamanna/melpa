@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from redis import Redis
-import requests, json
+import json
 
 app = Flask(__name__)
 redis = Redis()
@@ -25,15 +25,15 @@ def index():
         if archive:
             archive = json.loads(archive)
 
-        table_data.append([recipe,
-                           archive['desc'] if archive else None,
-                           ".".join(map(str, archive['ver'])) if archive else None,
-                           "https://github.com/milkypostman/melpa/blob/master/recipes/" + recipe,
-                           r['fetcher'] if 'fetcher' in r else None,
-                           dls if dls else None])
+        table_data.append({"package": recipe,
+                           "desc": archive['desc'] if archive and "desc" in archive else "",
+                           "version": ".".join(map(str, archive['ver'])) if archive and "ver" in archive else "",
+                           "recipe":"https://github.com/milkypostman/melpa/blob/master/recipes/" + recipe,
+                           "source":r['fetcher'] if r and "fetcher" in r else "",
+                           "dls": dls if dls else ""})
 
 
-    return render_template("index.html", recipes=table_data)
+    return render_template("index.html", recipes=table_data, body_attrs='ng-controller=MyCtrl')
 
 if __name__ == '__main__':
     app.run(debug=True)
