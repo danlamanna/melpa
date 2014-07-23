@@ -1,3 +1,56 @@
-{% for name, recipe in %recipes %}
-{{ name }}
-{% endfor %}
+<html>
+  <head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.1/css/jquery.dataTables.css" />
+
+    <script type="javascript">
+
+      jQuery(document).ready(function() {
+      jQuery('#example').dataTable(
+      {
+      "searching": true,
+      "paging":   false,
+        "ordering": false,
+        "info":     false
+
+      }
+      );
+      } );
+      </script>
+  </head>
+
+  <body>
+
+
+
+    <div id="example_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="example"></label></div>
+
+<table id="example" class="display dataTable">
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Description</th>
+      <th>Version</th>
+      <th>Recipe</th>
+      <th>Source</th>
+      <th>DLs</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for recipe in recipes %}
+    <tr>
+      <td>{{ recipe[0] }}</td>
+      <td>{{ recipe[1] }}</td>
+      <td>{{ recipe[2] }}</td>
+      <td><a href="{{ recipe[3] }}">Recipe</a></td>
+      <td>{{ recipe[4] }}</td>
+      <td>{{ recipe[5] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  </body>
+
+  </html>
