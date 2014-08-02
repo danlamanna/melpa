@@ -15,14 +15,4 @@ app.controller('MyCtrl', function($scope) {
         data: 'myData',
         filterOptions: $scope.filterOptions
     };
-
-    $scope.filterNephi = function() {
-        var filterText = 'name:Nephi';
-        if ($scope.filterOptions.filterText === '') {
-            $scope.filterOptions.filterText = filterText;
-        }
-        else if ($scope.filterOptions.filterText === filterText) {
-            $scope.filterOptions.filterText = '';
-        }
-    };
 });

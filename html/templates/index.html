@@ -1,19 +1,25 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <h1><span class="archive-name">MELPA</span> (Milkypostman’s Emacs Lisp Package Archive)</h1>
-      <ul>
-        <li>Up-to-date packages built on our servers from upstream source</li>
-        <li>Installable in any recent Emacs using 'package.el' - no need to install svn/cvs/hg/bzr/git/darcs/fossil etc.</li>
-        <li>Curated - no obsolete, renamed, forked or randomly hacked packages</li>
-        <li>Comprehensive - more packages than any other archive</li>
-        <li>Automatic updates - new commits result in new packages</li>
-        <li>Extensible - contribute recipes via github, and we'll build the packages</li>
-      </ul>
+
+
+
+<main class="container" id="content">
+
+  <section class="page-header"><h1><span>MELPA</span><small> (Milkypostman’s Emacs Lisp Package Archive)</small></h1></section>
+
+  <div class="row"><div class="col-md-8"><section class="jumbotron"><ul><li><strong>Up-to-date packages built on our servers from upstream source</strong></li><li><strong>Installable in any recent Emacs using 'package.el'</strong> - no need to install svn/cvs/hg/bzr/git/darcs/fossil etc.</li><li><strong>Curated</strong> - no obsolete, renamed, forked or randomly hacked packages</li><li><strong>Comprehensive</strong> - more packages than any other archive</li><li><strong>Automatic updates</strong> - new commits result in new packages</li><li><strong>Extensible</strong> - contribute recipes via github, and we'll build the packages</li></ul></section></div><div class="col-md-4" data-twttr-id="twttr-sandbox-0"><div class="alert alert-success"><strong>Last build ended: </strong><span>2 hours ago</span></div><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-timeline twitter-timeline-rendered" title="Twitter Timeline" height="250" style="border: none; max-width: 100%; min-width: 180px; width: 390px;"></iframe></div></div>
+
+
+  <section id="packages">
+
+    <h2>Current List of {{ recipes|length  }} Packages <small>{{ total_dl_count }} downloads to date</small></h2>
 
       <strong>Filter:</strong> </string><input type="text" ng-model="filterOptions.filterText" />
       <br/>
       <br/>
       <div class="gridStyle" ng-grid="gridOptions"></div>
+
+      </section>
 
       {% endblock %}

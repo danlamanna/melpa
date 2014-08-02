@@ -4,14 +4,24 @@ import requests, json
 redis = Redis()
 
 # once this is on the server, we can just open these files directly.
-data = {"recipes": "http://melpa.milkbox.net/recipes.json",
-        "archives": "http://melpa.milkbox.net/archive.json",
-        "dl_counts": "http://melpa.milkbox.net/download_counts.json"}
+data = {"recipes":   requests.get("http://melpa.milkbox.net/recipes.json").json,
+        "archives":  requests.get("http://melpa.milkbox.net/archive.json").json,
+        "dl_counts": requests.get("http://melpa.milkbox.net/download_counts.json").json}
 
-for datatype, url in data.iteritems():
-    r = requests.get(url)
+total_dl_count = 0
 
-    # todo: pipelining in redis?
-    if r.status_code == 200:
-        for name, response in r.json().iteritems():
-            redis.set("%s:%s" % (datatype, name), json.dumps(response))
+for recipe_name, recipe in data['recipes'].iteritems():
+    package = {}
+
+    try:
+        total_dl_count += int(data["dl_counts"][recipe_name])
+
+        package["recipe"] = recipe
+        package["archive"] = data["archives"][recipe_name]
+        package["dl_count"] = int(data["dl_counts"][recipe_name])
+    except KeyError:
+        pass # less archives than recipes? extra dl_counts?
+
+    redis.set("package:%s" % recipe_name, json.dumps(package))
+
+redis.set("total_dl_count", total_dl_count)

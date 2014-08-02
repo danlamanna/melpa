@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <main class="container" id="content">
+    <section>
+      <h1>{{ package_name }} <small>{{ package['archive']['ver']|join(".") }}</small></h1>
+
+      <p class="lead">{{ package['archive']['desc'] }}</p>
+
+      <p>
+        <a class="btn btn-default" href="{{ recipe_url }}">
+          <span class="glyphicon glyphicon-cutlery"></span> Recipe
+        </a>
+        <a class="btn btn-default" href="/packages/{{package_name}}-{{package['archive']['ver']|join('.')}}.tar">
+          <span class="glyphicon glyphicon-download"></span> Download
+        </a>
+      </p>
+
+      <section>
+        <div class="well">
+          <dl class="dl-horizontal">
+            <dt>Downloads</dt>
+            <dd>{{ package['dl_count'] }}<span class="muted"> (all versions)</span>, percentile: ??</dd>
+
+            <dt>Source</dt>
+            <dd><span>{{ package['recipe']['fetcher'] }}</span></dd>
+
+            <dt>Dependencies</dt>
+            <dd></dd>
+
+            <dt>Needed by</dt>
+            <dd>
+              {{ needed_by|join(" / ") }}
+            </dd>
+          </dl>
+        </div>
+      </section>
+
+      <section>
+        <h4>Description</h4>
+        <pre>
+          {% if "archive" in package and "desc" in package['archive'] %}
+            {{ package['archive']['desc'] }}
+          {% else %}
+            No description available.
+          {% endif %}
+        </pre>
+      </section>
+    </section>
+  </main>
+{%  endblock %}

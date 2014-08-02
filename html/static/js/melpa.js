@@ -103,9 +103,9 @@
   //////////////////////////////////////////////////////////////////////////////
 
   melpa.packageList = m.sync([
-    m.request({method: 'GET', url: "/recipes.json"}),
-    m.request({method: 'GET', url: "/archive.json"}),
-    m.request({method: 'GET', url: "/download_counts.json"})
+    m.request({method: 'GET', url: "/static/recipes.json"}),
+    m.request({method: 'GET', url: "/static/archive.json"}),
+    m.request({method: 'GET', url: "/static/download_counts.json"})
   ]).then(function (info) {
     var recipes = info[0], archive = info[1], downloads = info[2];
 
@@ -346,7 +346,7 @@
 
   melpa.buildstatus = {};
   melpa.buildstatus.controller = function() {
-    this.buildCompletionTime = m.request({method: 'GET', url: "/build-status.json"})
+    this.buildCompletionTime = m.request({method: 'GET', url: "/static/build-status.json"})
       .then(function(status){
         return new Date(status.completed * 1000);
     });
